@@ -6,11 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
+        // Job board table
+        Schema::create('job_listings', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('description');
+            $table->unsignedInteger('salary');
+            $table->string('location');
+            $table->string('category');
+            $table->enum('experience', ['entry', 'intermediate', 'senior']);
+            $table->timestamps();
+        });
+
+        // Laravel queue tables
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->string('queue')->index();
@@ -18,7 +28,8 @@ return new class extends Migration
             $table->unsignedTinyInteger('attempts');
             $table->unsignedInteger('reserved_at')->nullable();
             $table->unsignedInteger('available_at');
-            $table->unsignedInteger('created_at');
+            $table->timestamp('created_at'); // timestamp instead of integer
+            $table->timestamp('updated_at')->nullable();
         });
 
         Schema::create('job_batches', function (Blueprint $table) {
@@ -45,11 +56,9 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
+        Schema::dropIfExists('job_listings');
         Schema::dropIfExists('jobs');
         Schema::dropIfExists('job_batches');
         Schema::dropIfExists('failed_jobs');
