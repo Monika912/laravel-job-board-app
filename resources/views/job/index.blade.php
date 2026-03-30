@@ -8,6 +8,13 @@
     <x-breadcrumbs :links="$links" class="mb-4" />
     <x-card class="mb-4 text-sm">
         <div class="mb-4 grid grid-cols-2 gap-4">
+            <div>
+                <div class="mb-1 font-semibold">Search</div>
+                <x-text-input name="search" value="" placeholder="Search for any text"/>
+            </div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
 
         </div>
     </x-card>
