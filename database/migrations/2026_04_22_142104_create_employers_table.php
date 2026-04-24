@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::table('jobs', function(Blueprint $table) {
+        Schema::table('job_listings', function(Blueprint $table) {
             $table->foreignIdFor(\App\Models\Employer::class)->constrained();
         });
     }
@@ -27,10 +27,12 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    {
-        Schema::table('jobs', function(Blueprint $table) {
-            $table->dropForeignIdFor(\App\Models\Employer::class);
-        });
-        Schema::dropIfExists('employers');
-    }
+{
+    Schema::table('job_listings', function (Blueprint $table) {
+        $table->dropForeign(['employer_id']);
+        $table->dropColumn('employer_id');
+    });
+
+    Schema::dropIfExists('employers');
+}
 };
