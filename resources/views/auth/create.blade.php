@@ -10,7 +10,7 @@
             </div>
             <div class="mb-8">
                 <label for="password" class="mb-2 block text-sm font-medium text-slate-900">Password</label>
-                <x-text-input name="password" type="password"/>
+                <x-text-input name="password" type="password" />
             </div>
 
             <div class="mb-8 flex justify-between text-sm font-medium">
