@@ -12,6 +12,7 @@ class MyJobController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAnyEmployer', Job::class);
         return view('my-jobs.index',
         [
             'jobs' => auth()->guard('web')->user()->employer->jobs()
@@ -25,6 +26,7 @@ class MyJobController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Job::class);
         return view('my-jobs.create');
     }
 
@@ -33,6 +35,7 @@ class MyJobController extends Controller
      */
     public function store(JobRequest $request)
     {
+        $this->authorize('create', Job::class);
 
         $request->user()->employer->jobs()->create($request->validated());
 
@@ -53,6 +56,7 @@ class MyJobController extends Controller
      */
     public function edit(Job $myJob)
     {
+        $this->authorize('update', $myJob);
         return view('my-jobs.edit', ['job' => $myJob]);
     }
 
@@ -61,6 +65,7 @@ class MyJobController extends Controller
      */
     public function update(JobRequest $request, Job $myJob)
     {
+        $this->authorize('update', $myJob);
         $myJob->update($request->validated());
 
         return redirect()->route('my-jobs.index')
