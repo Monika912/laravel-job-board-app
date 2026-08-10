@@ -65,7 +65,7 @@ class JobPolicy
      */
     public function restore(User $user, Job $job): bool
     {
-        return false;
+        return $job->employer->user_id === $user->id;
     }
 
     /**
@@ -73,7 +73,7 @@ class JobPolicy
      */
     public function forceDelete(User $user, Job $job): bool
     {
-        return false;
+        return $job->employer->user_id === $user->id;
     }
 
     public function apply(User $user, Job $job){
